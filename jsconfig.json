@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/firebase/*": ["src/firebase/*"],
+      "@/layout/*": ["src/layout/*"]
+    }
+  }
+}
