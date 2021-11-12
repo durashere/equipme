@@ -42,6 +42,8 @@ const MenuItem = ({ item }) => {
 const DefaultHeader = () => {
   const { pathname } = useRouter();
 
+  const activePage = menuItems.find((item) => item.path === pathname);
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen((state) => !state);
@@ -65,7 +67,7 @@ const DefaultHeader = () => {
             paddingLeft: theme.spacing(2),
           })}
         >
-          {menuItems.find((item) => item.path === pathname).name}
+          {activePage?.name}
         </Typography>
         {/* <Button color="inherit">Login</Button> */}
       </Toolbar>
