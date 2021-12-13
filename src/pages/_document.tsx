@@ -1,9 +1,10 @@
+import { ReactElement } from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-class MyDocument extends Document {
-  render() {
+export default class MyDocument extends Document {
+  render(): ReactElement {
     return (
-      <Html>
+      <Html lang="en">
         <Head />
         <body>
           <Main />
@@ -13,5 +14,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;
