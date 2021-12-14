@@ -16,9 +16,10 @@ const EquipmentItem = ({
 }: EquipmentItemProps): ReactElement => {
   const grayIfZero = quantity <= 0 ? 'gray.400' : 'current';
 
-  const removeItem = async (): Promise<void> => {
+  const removeEquipment = async (): Promise<void> => {
     await deleteDoc(doc(db, 'equipment', id));
   };
+
   const updateEquipmentQuantity = async (
     quantityChange: number
   ): Promise<void> => {
@@ -45,7 +46,7 @@ const EquipmentItem = ({
     <Flex gap={4} align="center" justify="space-between">
       <IconButton
         aria-label="remove item"
-        onClick={removeItem}
+        onClick={removeEquipment}
         icon={<MdOutlineDelete />}
       />
       <Heading flexGrow={1} as="h2" fontSize="sm" color={grayIfZero}>

@@ -15,7 +15,7 @@ import { db } from '@/lib/firebase/clientApp';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import EquipmentItem from '@/components/EquipmentItem';
 
-const EquipmentOrderPage = (): ReactElement | null => {
+const EquipmentPage = (): ReactElement | null => {
   const {
     handleSubmit,
     register,
@@ -94,8 +94,8 @@ const EquipmentOrderPage = (): ReactElement | null => {
   );
 };
 
-EquipmentOrderPage.getLayout = (page: ReactElement): ReactElement => (
+EquipmentPage.getLayout = (page: ReactElement): ReactElement => (
   <DefaultLayout>{page}</DefaultLayout>
 );
 
-export default EquipmentOrderPage;
+export default EquipmentPage;
