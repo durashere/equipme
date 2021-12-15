@@ -4,11 +4,13 @@ import { ReactElement } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useForm } from 'react-hook-form';
 import {
-  IconButton,
-  FormControl,
-  Input,
+  Alert,
+  AlertIcon,
   Flex,
+  FormControl,
   FormErrorMessage,
+  IconButton,
+  Input,
 } from '@chakra-ui/react';
 
 import { db } from '@/lib/firebase/clientApp';
@@ -30,17 +32,15 @@ const EquipmentPage = (): ReactElement | null => {
     return null;
   }
 
-  if (!equipment) {
-    return null;
-  }
-
   const copyList = (): void => {
-    const list = equipment.docs.map(
-      (doc) => `${doc.data().name} - ${doc.data().quantity}`
-    );
-    const parsedList = list.join('\n');
+    if (equipment) {
+      const list = equipment.docs.map(
+        (doc) => `${doc.data().name} - ${doc.data().quantity}`
+      );
+      const parsedList = list.join('\n');
 
-    navigator.clipboard.writeText(parsedList);
+      navigator.clipboard.writeText(parsedList);
+    }
   };
 
   const createEquipment = async (values: { name: string }): Promise<void> => {
@@ -52,11 +52,19 @@ const EquipmentPage = (): ReactElement | null => {
 
   return (
     <Flex direction="column" gap={4}>
-      <Flex direction="column" gap={4}>
-        {equipment.docs.map((eq) => (
-          <EquipmentItem key={eq.id} id={eq.id} item={eq.data()} />
-        ))}
-      </Flex>
+      {equipment?.docs.length !== 0 && (
+        <Flex direction="column" gap={4}>
+          {equipment?.docs.map((eq) => (
+            <EquipmentItem key={eq.id} id={eq.id} item={eq.data()} />
+          ))}
+        </Flex>
+      )}
+      {equipment?.docs.length === 0 && (
+        <Alert status="info">
+          <AlertIcon />
+          There are no equipment in the database.
+        </Alert>
+      )}
       <form onSubmit={handleSubmit(createEquipment)}>
         <FormControl isInvalid={errors.name}>
           <FormErrorMessage>
