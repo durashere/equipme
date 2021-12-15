@@ -6,11 +6,12 @@ import { useForm } from 'react-hook-form';
 import {
   Alert,
   AlertIcon,
-  Flex,
   FormControl,
   FormErrorMessage,
+  HStack,
   IconButton,
   Input,
+  Stack,
 } from '@chakra-ui/react';
 
 import { db } from '@/lib/firebase/clientApp';
@@ -21,7 +22,8 @@ const EquipmentPage = (): ReactElement | null => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const [equipment, equipmentLoading] = useCollection(
@@ -48,16 +50,18 @@ const EquipmentPage = (): ReactElement | null => {
       name: values.name,
       quantity: 10,
     });
+
+    reset({ name: '' });
   };
 
   return (
-    <Flex direction="column" gap={4}>
+    <Stack spacing={4}>
       {equipment?.docs.length !== 0 && (
-        <Flex direction="column" gap={4}>
+        <Stack spacing={4}>
           {equipment?.docs.map((eq) => (
             <EquipmentItem key={eq.id} id={eq.id} item={eq.data()} />
           ))}
-        </Flex>
+        </Stack>
       )}
       {equipment?.docs.length === 0 && (
         <Alert status="info">
@@ -67,10 +71,7 @@ const EquipmentPage = (): ReactElement | null => {
       )}
       <form onSubmit={handleSubmit(createEquipment)}>
         <FormControl isInvalid={errors.name}>
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-          <Flex gap={4}>
+          <HStack spacing={4}>
             <Input
               type="text"
               placeholder="Equipment name..."
@@ -83,11 +84,13 @@ const EquipmentPage = (): ReactElement | null => {
               })}
             />
             <IconButton
+              isLoading={isSubmitting}
               icon={<MdOutlineCreate />}
               aria-label="create equipment"
               type="submit"
             />
-          </Flex>
+          </HStack>
+          <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
         </FormControl>
       </form>
       <IconButton
@@ -98,7 +101,7 @@ const EquipmentPage = (): ReactElement | null => {
         position="fixed"
         right="4"
       />
-    </Flex>
+    </Stack>
   );
 };
 

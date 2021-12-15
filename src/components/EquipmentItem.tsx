@@ -1,5 +1,5 @@
 import { deleteDoc, doc, DocumentData, updateDoc } from 'firebase/firestore';
-import { IconButton, Heading, Text, Flex } from '@chakra-ui/react';
+import { IconButton, Heading, Text, HStack } from '@chakra-ui/react';
 import { MdOutlineAdd, MdOutlineDelete, MdOutlineRemove } from 'react-icons/md';
 import { ReactElement } from 'react';
 
@@ -14,7 +14,7 @@ const EquipmentItem = ({
   id,
   item: { name, quantity },
 }: EquipmentItemProps): ReactElement => {
-  const grayIfZero = quantity <= 0 ? 'gray.400' : 'current';
+  const grayIfZero = quantity === 0 ? 'gray.400' : 'current';
 
   const removeEquipment = async (): Promise<void> => {
     await deleteDoc(doc(db, 'equipment', id));
@@ -43,7 +43,7 @@ const EquipmentItem = ({
   };
 
   return (
-    <Flex gap={4} align="center" justify="space-between">
+    <HStack spacing={4}>
       <IconButton
         aria-label="remove item"
         onClick={removeEquipment}
@@ -52,7 +52,7 @@ const EquipmentItem = ({
       <Heading flexGrow={1} as="h2" fontSize="sm" color={grayIfZero}>
         {name}
       </Heading>
-      <Flex gap={4} align="center" justify="center">
+      <HStack spacing={4}>
         <IconButton
           aria-label="remove five"
           onClick={decreaseQuantityByFive}
@@ -66,8 +66,8 @@ const EquipmentItem = ({
           onClick={increaseQuantityByFive}
           icon={<MdOutlineAdd />}
         />
-      </Flex>
-    </Flex>
+      </HStack>
+    </HStack>
   );
 };
 
