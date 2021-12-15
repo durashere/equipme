@@ -1,4 +1,4 @@
-import { Box, Container, Heading } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Container } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -18,17 +18,10 @@ const DefaultLayout = ({ children }: IDefaultLayout): ReactElement | null => {
       <Box as="main">
         {!loading && user && children}
         {!loading && !user && (
-          <Heading
-            as="h2"
-            borderRadius="md"
-            borderWidth={1}
-            fontSize="xl"
-            fontWeight="semibold"
-            p={4}
-            textAlign="center"
-          >
-            Login inside sidebar to get access
-          </Heading>
+          <Alert status="error">
+            <AlertIcon />
+            Login inside sidebar to get access.
+          </Alert>
         )}
       </Box>
     </Container>
