@@ -16,7 +16,7 @@ import {
 
 import { db } from '@/lib/firebase/clientApp';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import EquipmentItem from '@/components/EquipmentItem';
+import EquipmentItem from '@/components/equipment/EquipmentCard';
 
 const EquipmentPage = (): ReactElement | null => {
   const {
