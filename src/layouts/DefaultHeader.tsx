@@ -11,16 +11,19 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
   Heading,
+  HStack,
   IconButton,
+  Stack,
   useDisclosure,
-  VStack,
 } from '@chakra-ui/react';
 
 import { auth } from '@/lib/firebase/clientApp';
 
-const menuItems = [{ name: 'Equipment', path: '/' }];
+const menuItems = [
+  { name: 'Equipment', path: '/' },
+  { name: 'Toners', path: '/toners' },
+];
 
 const DefaultHeader = (): ReactElement | null => {
   const { pathname, push } = useRouter();
@@ -35,7 +38,7 @@ const DefaultHeader = (): ReactElement | null => {
   };
 
   return (
-    <Flex as="header" align="center" gap={4} mb={4}>
+    <HStack as="header" spacing={4} mb={4}>
       <IconButton aria-label="open drawer" icon={<MdMenu />} onClick={onOpen} />
       <Heading as="h1" fontSize="xl" fontWeight="semibold" flexGrow={1}>
         {activePage?.name}
@@ -61,10 +64,9 @@ const DefaultHeader = (): ReactElement | null => {
                 Login with Google
               </Button>
             )}
-            <VStack mt={8} as="nav">
+            <Stack mt={8} as="nav">
               {menuItems.map((item) => (
                 <Button
-                  isFullWidth
                   key={item.name}
                   onClick={(): void => {
                     push(item.path);
@@ -74,11 +76,11 @@ const DefaultHeader = (): ReactElement | null => {
                   {item.name}
                 </Button>
               ))}
-            </VStack>
+            </Stack>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-    </Flex>
+    </HStack>
   );
 };
 
