@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
 import { MdMenu } from 'react-icons/md';
 import { ReactElement } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -34,7 +34,7 @@ const DefaultHeader = (): ReactElement | null => {
 
   const signInWithGoogle = async (): Promise<void> => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+    signInWithRedirect(auth, provider);
   };
 
   return (
