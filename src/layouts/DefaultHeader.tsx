@@ -21,8 +21,9 @@ import {
 import { auth } from '@/lib/firebase/clientApp';
 
 const menuItems = [
-  { name: 'Equipment', path: '/' },
+  { name: 'Dashboard', path: '/' },
   { name: 'Toners', path: '/toners' },
+  { name: 'Equipment', path: '/equipment' },
 ];
 
 const DefaultHeader = (): ReactElement | null => {
