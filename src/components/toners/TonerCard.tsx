@@ -19,6 +19,7 @@ import {
 import moment from 'moment';
 
 import { db } from '@/lib/firebase/clientApp';
+import TonerRemoveModal from '@/components/toners/TonerRemoveModal';
 import TonerUseModal from '@/components/toners/TonerUseModal';
 
 interface TonerCardProps {
@@ -49,6 +50,7 @@ const TonerCard = ({ id, toner }: TonerCardProps): ReactElement => {
             {toner.code}
           </Text>
         </Box>
+        {isOpen && <TonerRemoveModal id={id} code={toner.code} />}
         <IconButton
           aria-label="usage history"
           icon={<MdOutlineHistory />}
