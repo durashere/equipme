@@ -74,9 +74,10 @@ const TonerAddModal = ({ toners }: TonerAddModalProps): ReactElement => {
   );
 
   const addToner = async (values: AddTonerProps): Promise<void> => {
+    const currentStock = Number(values.stock);
+
     if (codeAlreadyUsed) {
-      const newStock =
-        Number(codeAlreadyUsed.data().stock) + Number(values.stock);
+      const newStock = Number(codeAlreadyUsed.data().stock) + currentStock;
 
       await updateDoc(doc(db, 'toners', codeAlreadyUsed.id), {
         stock: newStock,
@@ -95,12 +96,12 @@ const TonerAddModal = ({ toners }: TonerAddModalProps): ReactElement => {
         code: values.code,
         color: values.color,
         model: values.model,
-        stock: values.stock,
+        stock: currentStock,
       });
 
       await addDoc(collection(db, `toners/${addedToner.id}/history`), {
         date: serverTimestamp(),
-        stock: values.stock,
+        stock: currentStock,
         user: user?.displayName,
       });
     }
