@@ -64,7 +64,7 @@ const EquipmentPage = (): ReactElement | null => {
         </Stack>
       )}
       {equipment?.docs.length === 0 && (
-        <Alert status="info">
+        <Alert borderRadius="md" status="info">
           <AlertIcon />
           There are no equipment in the database.
         </Alert>

@@ -28,7 +28,7 @@ const TonersPage = (): ReactElement | null => {
         </Grid>
       )}
       {toners?.docs.length === 0 && (
-        <Alert status="info">
+        <Alert borderRadius="md" status="info">
           <AlertIcon />
           There are no toners in the database.
         </Alert>

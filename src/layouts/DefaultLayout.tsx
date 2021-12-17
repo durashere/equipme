@@ -18,7 +18,7 @@ const DefaultLayout = ({ children }: IDefaultLayout): ReactElement | null => {
       <Box as="main">
         {!loading && user && children}
         {!loading && !user && (
-          <Alert status="error">
+          <Alert borderRadius="md" status="error">
             <AlertIcon />
             Login inside sidebar to get access.
           </Alert>
