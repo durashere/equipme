@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -61,8 +62,9 @@ const TonerAddModal = ({ toners }: TonerAddModalProps): ReactElement => {
   const {
     handleSubmit,
     register,
-    watch,
     reset,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -122,12 +124,36 @@ const TonerAddModal = ({ toners }: TonerAddModalProps): ReactElement => {
                 <FormControl isInvalid={errors?.code}>
                   <FormLabel>Code</FormLabel>
                   <Input
+                    autoComplete="off"
                     type="text"
                     {...register('code', {
                       required: 'You have to provide code',
                     })}
                   />
                   <FormErrorMessage>{errors?.code?.message}</FormErrorMessage>
+                  {code && !codeAlreadyUsed && (
+                    <Box ml={-2} mt={2} maxH={200} overflowY="scroll">
+                      <Stack p={2}>
+                        {toners?.docs
+                          .filter((toner) =>
+                            toner
+                              .data()
+                              .code.toLowerCase()
+                              .includes(code?.toLowerCase())
+                          )
+                          .map((toner) => (
+                            <Button
+                              key={toner.id}
+                              onClick={(): void =>
+                                setValue('code', toner.data().code)
+                              }
+                            >
+                              {toner.data().code}
+                            </Button>
+                          ))}
+                      </Stack>
+                    </Box>
+                  )}
                 </FormControl>
                 {code && !codeAlreadyUsed && (
                   <>
